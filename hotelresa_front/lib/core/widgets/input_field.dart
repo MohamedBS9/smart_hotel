@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AuthFiled extends StatelessWidget {
+class InputField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final bool isPassWord;
-  const AuthFiled({
+  const InputField({
     super.key,
     required this.hintText,
     required this.controller,

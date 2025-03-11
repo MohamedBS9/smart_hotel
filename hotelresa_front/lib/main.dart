@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hoelresa_front/core/theme/theme.dart';
 import 'package:hoelresa_front/features/auth/presentation/pages/login_page.dart';
+
+import 'core/routes/app_router.dart';
 //import 'package:hoelresa_front/features/auth/presentation/pages/signup_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
-  // This widget is the root of your application.
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Smart Hotel',
       theme: AppTheme.darkThemeMode,
-      home: const LoginPage(),
+      routerConfig: _appRouter.config(),
     );
   }
 }

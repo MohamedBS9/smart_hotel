@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePaiementDto } from './dto/create-paiement.dto';
 import { UpdatePaiementDto } from './dto/update-paiement.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { IPaiement } from './interface/interface.paiement';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class PaiementService {
-  create(createPaiementDto: CreatePaiementDto) {
-    return 'This action adds a new paiement';
-  }
+  constructor(@InjectModel('chambre') private paiementModel:Model<IPaiement>,) { }
+    async createNewPaiement(createPaiementDto: CreatePaiementDto): Promise<IPaiement> {
+      const newPaiement = await new this.paiementModel(createPaiementDto)
+      
+      return newPaiement.save()
+    }
 
   findAll() {
     return `This action returns all paiement`;
@@ -24,3 +30,4 @@ export class PaiementService {
     return `This action removes a #${id} paiement`;
   }
 }
+createPaiementDto: CreatePaiementDto

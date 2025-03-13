@@ -25,5 +25,5 @@ export class Utilisateur {
 }
 
 export const UtilisateurSchema = SchemaFactory.createForClass(Utilisateur).pre('save',async function(){
-    this.motdepasse=await argon2.hash(this.motdepasse)
+ this.motdepasse=await argon2.hash(this.motdepasse)
 })

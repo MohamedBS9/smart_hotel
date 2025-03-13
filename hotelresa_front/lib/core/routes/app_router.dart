@@ -14,7 +14,9 @@ class AppRouter extends RootStackRouter {
         initial: true,
         guards: [GetInitialRoute(prefUtils)]),
     AutoRoute(page: HomeRoute.page),*/
-        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: LoginRoute.page, initial: true),
         AutoRoute(page: SignUpRoute.page),
+        AutoRoute(page: EmailRoute.page),
+        AutoRoute(page: VerifyRoute.page),
       ];
 }

@@ -44,6 +44,8 @@ async deleteHotel(id:string):Promise<IHotel>{
   return listeData
 }
 
+
+
 async updateHotel(id:string,updateHotelsDto:UpdateHotelDto ):Promise<IHotel>{
   const updateHotel= await this.hotelModel.findByIdAndUpdate(id,updateHotelsDto,{new:true})
   if (!updateHotel){

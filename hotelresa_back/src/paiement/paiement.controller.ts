@@ -26,23 +26,5 @@ export class PaiementController {
 
   
 
-  @Get()
-  findAll() {
-    return this.paiementService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.paiementService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePaiementDto: UpdatePaiementDto) {
-    return this.paiementService.update(+id, updatePaiementDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.paiementService.remove(+id);
-  }
+  
 }

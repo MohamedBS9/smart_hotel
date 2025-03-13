@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hoelresa_front/core/theme/app_pallete.dart';
 import 'package:hoelresa_front/core/widgets/buttons/auth_gradient_button.dart';
 import 'package:hoelresa_front/core/widgets/input_field.dart';
+import '../../../../core/routes/app_router.gr.dart';
 
 @RoutePage()
 class SignUpPage extends StatefulWidget {
@@ -38,53 +39,58 @@ class _SignUpPageState extends State<SignUpPage> {
         padding: const EdgeInsets.all(15.0),
         child: Form(
           key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'sign Up',
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 30),
-              InputField(hintText: 'Email', controller: emailController),
-              const SizedBox(height: 10),
-              InputField(hintText: 'Name', controller: nameController),
-              const SizedBox(height: 10),
-              InputField(
-                hintText: 'Password',
-                controller: passwordController,
-                isPassWord: true,
-              ),
-              const SizedBox(height: 10),
-              InputField(hintText: '+216/Phone', controller: phoneController),
-              const SizedBox(height: 10),
-              InputField(hintText: 'Role', controller: roleController),
-              const SizedBox(height: 20),
-              const AuthGradientButton(buttonText: 'Sign Up'),
-              const SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Already have an account ? ',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    children: [
-                      TextSpan(
-                        text: 'Sign In',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleMedium?.copyWith(
-                              color: AppPallete.gradient2,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'sign Up',
+                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 30),
+                InputField(hintText: 'Email', controller: emailController),
+                const SizedBox(height: 10),
+                InputField(hintText: 'Name', controller: nameController),
+                const SizedBox(height: 10),
+                InputField(
+                  hintText: 'Password',
+                  controller: passwordController,
+                  isPassWord: true,
+                ),
+                const SizedBox(height: 10),
+                InputField(hintText: '+216/Phone', controller: phoneController),
+                const SizedBox(height: 20),
+                AuthGradientButton(
+                  buttonText: 'Sign Up',
+                  onPressedFunction: () {
+                    context.router.push(LoginRoute());
+                  },
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    context.router.push(LoginRoute());
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account ? ',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                          text: 'Sign In',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleMedium?.copyWith(
+                            color: AppPallete.gradient2,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

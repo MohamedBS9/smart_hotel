@@ -20,8 +20,8 @@ export class AuthController {
 
 
 @Post('resetmotdepasse/:token')
-async restMotDePasse(@Param('token') token:string,@Body('newPassword') newPassword:string){
-  return this.authService.restMotDePasse(token,newPassword);
+async restMotDePasse(@Param('resetCode') resetCode:string,@Body('newPassword') newPassword:string,@Body('email') email:string ){
+  return this.authService.restMotDePasse(email,resetCode,newPassword,);
 }
 
 

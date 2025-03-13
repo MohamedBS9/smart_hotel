@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hoelresa_front/core/theme/app_pallete.dart';
-
 class AuthGradientButton extends StatelessWidget {
   final String buttonText;
-  const AuthGradientButton({super.key, required this.buttonText,});
-
+  final VoidCallback onPressedFunction;
+  const AuthGradientButton({
+    super.key,
+    required this.buttonText,
+    required this.onPressedFunction,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,16 +20,15 @@ class AuthGradientButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
       ),
       child: ElevatedButton(
-        onPressed: () {},
-
+        onPressed: onPressedFunction,
         style: ElevatedButton.styleFrom(
           fixedSize: Size(400, 55),
           backgroundColor: AppPallete.transparentColor,
           shadowColor: AppPallete.transparentColor,
         ),
         child: Text(
-          buttonText ,
-          style:const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+          buttonText,
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
         ),
       ),
     );

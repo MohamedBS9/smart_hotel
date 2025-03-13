@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateChambreDto } from './dto/create-chambre.dto';
 import { UpdateChambreDto } from './dto/update-chambre.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,16 +10,22 @@ import { IHotel } from 'src/hotel/interface/interface.hotel';
 
 @Injectable()
 export class ChambreService {
-  constructor(@InjectModel('chambre') private chambreModel:Model<IChambre>,@InjectModel('hotel') private hotelModel:Model<IHotel>) { }
+  constructor(@InjectModel('chambre') private chambreModel:Model<IChambre>,@InjectModel('hotel') private hotelModel:Model<IHotel>,@InjectModel('reservation') private reservationModel:Model<IHotel>) { }
   async createNewChambre(createChambreDto: CreateChambreDto): Promise<IChambre> {
     const newChambre = await new this.chambreModel(createChambreDto)
     const savechambre= await newChambre.save() as IChambre
     const hotelId= await this.hotelModel.findById(createChambreDto.hotel)
+    const reservationId= await this.reservationModel.findById(createChambreDto.hotel)
     if (hotelId) {
       hotelId.chambre.push(savechambre._id as mongoose.Types.ObjectId)
           const savehotel = await hotelId.save()
           console.log(savehotel)
     }
+    if (reservationId) {
+      reservationId.commentaire.push(savechambre._id as mongoose.Types.ObjectId)
+             const saveutilisateeur = await reservationId.save()
+             console.log(saveutilisateeur) 
+            }
     return savechambre
   }
 
@@ -36,10 +42,33 @@ export class ChambreService {
     const listeData = await this.chambreModel.findByIdAndDelete(id)
     if (!listeData) {
       throw new BadRequestException('data with this id does not found ')
-
     }
+    const updateHotel = await this.hotelModel.findById(listeData.hotel);
+    if(updateHotel){
+      updateHotel.chambre =  updateHotel.chambre.filter(chamId => chamId.toString()!== id);
+    await  updateHotel.save();
+    }else{
+    throw new NotFoundException(`chambre #${id} not found in hotel`);
+}
     return listeData
   }
+
+
+  //  async deleteChambre(id: string): Promise<IChambre> {
+//     const deletedPublication =
+//       await this.publicationModel.findByIdAndDelete(publicationId);
+//     if (!deletedPublication) {
+//       throw new NotFoundException(`Publication #${publicationId} not found`);
+//     }
+//     const updatedEntrprise = await this.entrepriseModel.findById(deletedPublication.entreprise);
+//     if(updatedEntrprise){
+//   updatedEntrprise.publication = updatedEntrprise.publication.filter(pubId => pubId.toString()!== publicationId);
+//     await updatedEntrprise.save();
+//     }else{
+//     throw new NotFoundException(`publication #${publicationId} not found in the entreprise`);
+// }
+//     return deletedPublication;
+//   }
 
   async updateChambre(id: string, updateChambreDto: UpdateChambreDto): Promise<IChambre> {
     const updateChambre = await this.chambreModel.findByIdAndUpdate(id, updateChambreDto, { new: true })

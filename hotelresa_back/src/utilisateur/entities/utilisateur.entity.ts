@@ -19,6 +19,12 @@ export class Utilisateur {
     code:string|null
     @Prop()
     verify:boolean 
+    @Prop()
+    resetCode:string
+    @Prop()
+    resetCodeExpires:Date
+
+
     
     
 

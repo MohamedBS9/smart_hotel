@@ -11,11 +11,12 @@ class LoginPageWidget extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController emailController;
 
-  const LoginPageWidget(
-      {super.key,
-      required this.formKey,
-      required this.emailController,
-      required this.passwordController});
+  const LoginPageWidget({
+    super.key,
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +40,31 @@ class LoginPageWidget extends StatelessWidget {
                 controller: passwordController,
                 isPassWord: true,
               ),
-              const SizedBox(height: 20),
-              const AuthGradientButton(buttonText: 'Sign In'),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.router.push(EmailRoute());
+                    },
+                    child: Text(
+                      'Forgot Password ?',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppPallete.gradient2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+              AuthGradientButton(
+                buttonText: 'Sign In',
+                onPressedFunction: () {},
+              ),
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
@@ -56,9 +80,9 @@ class LoginPageWidget extends StatelessWidget {
                         style: Theme.of(
                           context,
                         ).textTheme.titleMedium?.copyWith(
-                              color: AppPallete.gradient2,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          color: AppPallete.gradient2,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),

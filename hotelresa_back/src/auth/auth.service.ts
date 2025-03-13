@@ -10,6 +10,7 @@ import { UtilisateurModule } from 'src/utilisateur/utilisateur.module';
 import { IUtilisateur } from 'src/utilisateur/interface/interface.utilisateur';
 import { Utilisateur } from 'src/utilisateur/entities/utilisateur.entity';
 import { MailerService } from '@nestjs-modules/mailer';
+import * as crypto from 'crypto'
 
 @Injectable()
 export class AuthService {
@@ -55,14 +56,20 @@ export class AuthService {
       if (!utilisateur) {
         throw new BadRequestException('utilisateur not found ')
       }
-      const token = await this.jwtServise.signAsync(
-        { id: utilisateur._id },
-        { secret: this.configService.get<string>('Jwt_ACCESS_SECRET'), expiresIn: '15m' })
-      await this.utilisateurService.updateToken(utilisateur._id, token)
+      // const token = await this.jwtServise.signAsync(
+      //   { id: utilisateur._id },
+      //   { secret: this.configService.get<string>('Jwt_ACCESS_SECRET'), expiresIn: '15m' })
+      // await this.utilisateurService.updateToken(utilisateur._id, token)
+      const resetCode = crypto.randomInt(100000, 999999).toString();
+      utilisateur.resetCode = resetCode
+      utilisateur.resetCodeExpires = new Date(Date.now()+5*60*1000)
+      await utilisateur.save()
       const options = {
         to: utilisateur.email,
         subject: 'mot de passe oubiler',
-        html: `<h1> vous pouver reset votre password </h1><a href=http://localhost:3000/auth/reset/${token}>clic here </a>`
+        html: `<h1> Réinitialisation du mot de passe </h1>
+               <p>Votre code de réinitialisation est : <strong>${resetCode}</strong></p>
+               <p>Ce code expire dans 5 minutes.</p> <a href=http://localhost:3000/auth/reset/${resetCode}>clic here </a>`
       }
       await this.mailerService.sendMail(options)
       return {
@@ -78,20 +85,22 @@ export class AuthService {
     }
   }
 
-  async restMotDePasse(token:string,newPassword:string){
+  async restMotDePasse(email:string,resetCode:string,newPassword:string,){
     try {
-      const payload=await this.jwtServise.verify(token,{
-        secret:this.configService.get<string>('Jwt_ACCESS_SECRET'),
-      });
-      const utilisateur=await this.utilisateurService.findUtilisateurById(payload.id);
-      console.log('Utilisateur trouvé:', utilisateur);
+      // const payload=await this.jwtServise.verify(token,{
+      //   secret:this.configService.get<string>('Jwt_ACCESS_SECRET'),
+      // });
+      // const utilisateur=await this.utilisateurService.findUtilisateurById(payload.id);
+      // 
+      const utilisateur=await this.utilisateurService.findUtilisateur(email);
       if (!utilisateur) {
         throw new NotFoundException('utilisateur  non trouver'); 
       }
       const hashedPassword=await argon2.hash(newPassword);
       await this.utilisateurService.updateUtilisateur(utilisateur._id,{
         motdepasse:hashedPassword,
-        refreshToken:undefined,
+        resetCode:undefined,
+        resetCodeExpires:undefined,
       });
       return{
         success:true,
@@ -104,3 +113,6 @@ export class AuthService {
   }
 
 }
+
+
+

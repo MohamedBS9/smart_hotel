@@ -18,6 +18,8 @@ export class CreateUtilisateurDto {
     refreshToken:string|undefined
     code:string|null
     verify:boolean 
+    resetCode:string
+    resetCodeExpires:Date
     
     
 }

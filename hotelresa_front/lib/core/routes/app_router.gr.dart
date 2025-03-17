@@ -9,40 +9,76 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:hoelresa_front/features/auth/presentation/pages/login_page.dart'
+import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:hoelresa_front/features/auth/presentation/pages/email_check.dart'
     as _i1;
-import 'package:hoelresa_front/features/auth/presentation/pages/signup_page.dart'
+import 'package:hoelresa_front/features/auth/presentation/pages/login_page.dart'
     as _i2;
+import 'package:hoelresa_front/features/auth/presentation/pages/signup_page.dart'
+    as _i3;
+import 'package:hoelresa_front/features/auth/presentation/pages/verify_code_page.dart'
+    as _i4;
 
 /// generated route for
-/// [_i1.LoginPage]
-class LoginRoute extends _i3.PageRouteInfo<void> {
-  const LoginRoute({List<_i3.PageRouteInfo>? children})
-    : super(LoginRoute.name, initialChildren: children);
+/// [_i1.EmailPage]
+class EmailRoute extends _i5.PageRouteInfo<void> {
+  const EmailRoute({List<_i5.PageRouteInfo>? children})
+    : super(EmailRoute.name, initialChildren: children);
 
-  static const String name = 'LoginRoute';
+  static const String name = 'EmailRoute';
 
-  static _i3.PageInfo page = _i3.PageInfo(
+  static _i5.PageInfo page = _i5.PageInfo(
     name,
     builder: (data) {
-      return const _i1.LoginPage();
+      return const _i1.EmailPage();
     },
   );
 }
 
 /// generated route for
-/// [_i2.SignUpPage]
-class SignUpRoute extends _i3.PageRouteInfo<void> {
-  const SignUpRoute({List<_i3.PageRouteInfo>? children})
+/// [_i2.LoginPage]
+class LoginRoute extends _i5.PageRouteInfo<void> {
+  const LoginRoute({List<_i5.PageRouteInfo>? children})
+    : super(LoginRoute.name, initialChildren: children);
+
+  static const String name = 'LoginRoute';
+
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i2.LoginPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i3.SignUpPage]
+class SignUpRoute extends _i5.PageRouteInfo<void> {
+  const SignUpRoute({List<_i5.PageRouteInfo>? children})
     : super(SignUpRoute.name, initialChildren: children);
 
   static const String name = 'SignUpRoute';
 
-  static _i3.PageInfo page = _i3.PageInfo(
+  static _i5.PageInfo page = _i5.PageInfo(
     name,
     builder: (data) {
-      return const _i2.SignUpPage();
+      return const _i3.SignUpPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i4.VerifyPage]
+class VerifyRoute extends _i5.PageRouteInfo<void> {
+  const VerifyRoute({List<_i5.PageRouteInfo>? children})
+    : super(VerifyRoute.name, initialChildren: children);
+
+  static const String name = 'VerifyRoute';
+
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.VerifyPage();
     },
   );
 }

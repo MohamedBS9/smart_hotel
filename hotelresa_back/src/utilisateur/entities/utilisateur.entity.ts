@@ -19,11 +19,17 @@ export class Utilisateur {
     code:string|null
     @Prop()
     verify:boolean 
+    @Prop()
+    resetCode:string
+    @Prop()
+    resetCodeExpires:Date
+
+
     
     
 
 }
 
 export const UtilisateurSchema = SchemaFactory.createForClass(Utilisateur).pre('save',async function(){
-    this.motdepasse=await argon2.hash(this.motdepasse)
+ this.motdepasse=await argon2.hash(this.motdepasse)
 })

@@ -1,9 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hoelresa_front/core/routes/app_router.gr.dart';
-import 'package:hoelresa_front/core/theme/app_pallete.dart';
-import 'package:hoelresa_front/core/widgets/buttons/auth_gradient_button.dart';
-import 'package:hoelresa_front/core/widgets/input_field.dart';
+
 import 'package:hoelresa_front/features/auth/presentation/widgets/login_page_widget.dart';
 
 @RoutePage()

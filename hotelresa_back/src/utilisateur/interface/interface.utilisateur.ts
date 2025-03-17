@@ -7,6 +7,8 @@ export interface IUtilisateur extends Document{
     refreshToken:string|undefined
     code:string|null
     verify:boolean
+    resetCode:string
+    resetCodeExpires:Date
     
     
     

@@ -1,0 +1,7 @@
+{
+  "baseUrl" : "https://p-efb-ppms-euw-sultan.azurewebsites.net/sultan-v1/",
+  "imageUrl" : "https://ppmsstorageprod.blob.core.windows.net",
+  "googleApiKey" : "AIzaSyAz6XzOp2eIEPWI2LyXkUQU5fURTRk3_4o",
+  "termUrl" : "https://www.effia.be/reglement-ordre-interieur",
+  "regulationsUrl" : "https://www.effia.be/cgu-cgv-mentions-legales"
+}

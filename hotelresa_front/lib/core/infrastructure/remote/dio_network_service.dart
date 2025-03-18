@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 
 import '../../services/api_client.dart';
-import '../../util/environment.dart';
 import '../exceptions/exception_handler_mixin.dart';
 import '../exceptions/http_exception.dart';
 import '../response.dart' as response;
@@ -11,9 +10,8 @@ import 'network_service.dart';
 
 class DioNetworkService extends NetworkService with ExceptionHandlerMixin {
   final ApiClient apiClient;
-  final Environment environment;
 
-  DioNetworkService(this.environment, this.apiClient);
+  DioNetworkService(this.apiClient);
 
   @override
   Future<Either<AppException, response.Response>> post(

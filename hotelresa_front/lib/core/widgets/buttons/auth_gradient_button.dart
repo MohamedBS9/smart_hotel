@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hoelresa_front/core/theme/app_pallete.dart';
+
 class AuthGradientButton extends StatelessWidget {
+  final bool isLoading;
   final String buttonText;
   final VoidCallback onPressedFunction;
+
   const AuthGradientButton({
     super.key,
     required this.buttonText,
+    this.isLoading = false,
     required this.onPressedFunction,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,10 +31,13 @@ class AuthGradientButton extends StatelessWidget {
           backgroundColor: AppPallete.transparentColor,
           shadowColor: AppPallete.transparentColor,
         ),
-        child: Text(
-          buttonText,
-          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-        ),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Text(
+                buttonText,
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
       ),
     );
   }

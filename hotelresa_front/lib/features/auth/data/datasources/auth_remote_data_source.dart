@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:hoelresa_front/core/infrastructure/exceptions/http_exception.dart';
 
 import '../../../../core/infrastructure/remote/network_service.dart';
-import '../../../../core/shared/const_urls.dart';
+import '../../../../core/util/const_urls.dart';
 import '../../../../core/util/typedef.dart';
 import '../../../../injection_container.dart' as di;
 
@@ -44,7 +44,7 @@ class AuthenticationRemoteDataSource implements AuthenticationDataSource {
   @override
   FutureResult<AuthResponse> login(LoginRequest loginRequest) async {
     final eitherType = await networkService.post(
-      loginEndPoint,
+      loginUrl,
       data: loginRequest.toJson(),
     );
 
@@ -55,8 +55,8 @@ class AuthenticationRemoteDataSource implements AuthenticationDataSource {
       (response) {
         PrefUtils prefUtils = di.sl<PrefUtils>();
 
-        final user = AuthResponse.fromJson(response.data);
-        prefUtils.setToken(user.token ?? "");
+        final user = AuthResponse.fromJson(response.data['utilisateur']);
+        prefUtils.setToken(response.data['tokens']['accesstoken'] ?? "");
         prefUtils.setUser(user.user);
         return Right(user);
       },

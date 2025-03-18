@@ -32,7 +32,7 @@ class EmailPageWidget extends StatelessWidget {
                 style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
-              InputField(hintText: 'Email', controller: emailController),
+              InputField(hintText: 'Email', controller: emailController,),
 
               const SizedBox(height: 20),
               AuthGradientButton(buttonText:'continuer',onPressedFunction: () {

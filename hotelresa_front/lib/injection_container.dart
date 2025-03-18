@@ -23,7 +23,6 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
 
   sl
-    ..registerFactory(() => Environment.fromFlavor())
     ..registerLazySingleton(() => sharedPreferences)
     ..registerLazySingleton<PrefUtils>(
         () => PrefUtilsImpl(sharedPreferences: sl()))
@@ -31,7 +30,7 @@ Future<void> init() async {
 
     //network service
     ..registerFactory<NetworkService>(
-        () => DioNetworkService(sl<Environment>(), sl()))
+        () => DioNetworkService( sl()))
     //bloc
     ..registerFactory(() => AuthBloc(
           prefUtils: sl(),

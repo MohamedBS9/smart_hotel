@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -35,14 +35,29 @@ async listeHotel():Promise<IHotel[]>{
 }
 
 
-async deleteHotel(id:string):Promise<IHotel>{
-  const listeData =await this.hotelModel.findByIdAndDelete(id)
-  if(!listeData){
-    throw new  BadRequestException('data with this id does not found ')
+// async deleteHotel(id:string):Promise<IHotel>{
+//   const listeData =await this.hotelModel.findByIdAndDelete(id)
+//   if(!listeData){
+//     throw new  BadRequestException('data with this id does not found ')
 
+//   }
+//   return listeData
+// }
+
+async deleteHotel(id: string): Promise<IHotel> {
+    const listeData = await this.hotelModel.findByIdAndDelete(id)
+    if (!listeData) {
+      throw new BadRequestException('data with this id does not found ')
+    }
+    const updateHotelier = await this.hotelierModel.findById(listeData.hotelier);
+    if(updateHotelier){
+      updateHotelier.hotel =  updateHotelier.hotel.filter(hotelId => hotelId.toString()!== id);
+    await  updateHotelier.save();
+    }else{
+    throw new NotFoundException(`hotel #${id} not found in hotelier`);
+  } 
+    return listeData
   }
-  return listeData
-}
 
 
 

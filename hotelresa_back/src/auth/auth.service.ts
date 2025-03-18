@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException, Options } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, Options, UnauthorizedException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -62,7 +62,7 @@ export class AuthService {
       // await this.utilisateurService.updateToken(utilisateur._id, token)
       const resetCode = crypto.randomInt(100000, 999999).toString();
       utilisateur.resetCode = resetCode
-      utilisateur.resetCodeExpires = new Date(Date.now()+5*60*1000)
+      utilisateur.resetCodeExpires = new Date(Date.now() + 5 * 60 * 1000)
       await utilisateur.save()
       const options = {
         to: utilisateur.email,
@@ -85,34 +85,34 @@ export class AuthService {
     }
   }
 
-  async restMotDePasse(email:string,resetCode:string,newPassword:string,){
+  async restMotDePasse(email: string, resetCode: string, newPassword: string,) {
     try {
       // const payload=await this.jwtServise.verify(token,{
       //   secret:this.configService.get<string>('Jwt_ACCESS_SECRET'),
       // });
       // const utilisateur=await this.utilisateurService.findUtilisateurById(payload.id);
       // 
-      const utilisateur=await this.utilisateurService.findUtilisateur(email);
+      const utilisateur = await this.utilisateurService.findUtilisateur(email);
       if (!utilisateur) {
-        throw new NotFoundException('utilisateur  non trouver'); 
+        throw new NotFoundException('utilisateur  non trouver');
       }
-      const hashedPassword=await argon2.hash(newPassword);
-      await this.utilisateurService.updateUtilisateur(utilisateur._id,{
-        motdepasse:hashedPassword,
-        resetCode:undefined,
-        resetCodeExpires:undefined,
+      if (utilisateur.resetCode !== resetCode || new Date() > utilisateur.resetCodeExpires) {
+        throw new UnauthorizedException('Code invalide ou expiré');
+      }
+      const hashedPassword = await argon2.hash(newPassword);
+      await this.utilisateurService.updateUtilisateur(utilisateur._id, {
+        motdepasse: hashedPassword,
+        resetCode: undefined,
+        resetCodeExpires: undefined,
       });
-      return{
-        success:true,
-        message:'mot de passe modifier avec succés'
+      return {
+        success: true,
+        message: 'mot de passe modifier avec succés'
       };
     } catch (error) {
-      throw new BadRequestException('modification du mot de passe est echoue:'+error.message)
-      
+      throw new BadRequestException('modification du mot de passe est echoue:' + error.message);
     }
+
   }
 
 }
-
-
-

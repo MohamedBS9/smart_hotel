@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCommentaireDto } from './dto/create-commentaire.dto';
 import { UpdateCommentaireDto } from './dto/update-commentaire.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -50,10 +50,24 @@ export class CommentaireService {
        const listeData = await this.commentaireModel.findByIdAndDelete(id)
        if (!listeData) {
          throw new BadRequestException('data with this id does not found ')
-   
        }
-       return listeData
-     }
+        const updateHotel = await this.hotelModel.findById(listeData.hotel);
+           if(updateHotel){
+             updateHotel.commentaire =  updateHotel.commentaire.filter(commentaireId => commentaireId.toString()!== id);
+           await  updateHotel.save();
+           }else{
+           throw new NotFoundException(`commentaire #${id} not found in hotel`);
+           }
+          
+           const updateClient = await this.clientModel.findById(listeData.client);
+           if(updateClient){
+             updateClient.commentaire =  updateClient.commentaire.filter(commentaireId => commentaireId.toString()!== id);
+           await  updateClient.save();
+           }else{
+           throw new NotFoundException(`commentaire #${id} not found in hotel`);
+           }       
+      return listeData
+    }
    
      async updateCommentaire(id: string, updateCommentaireDto: UpdateCommentaireDto): Promise<ICommentaire> {
        const updateCommentaire = await this.commentaireModel.findByIdAndUpdate(id, updateCommentaireDto, { new: true })
@@ -74,5 +88,3 @@ export class CommentaireService {
 
   
 }
-createCommentaireDto: CreateCommentaireDto
-updateCommentaireDto: UpdateCommentaireDto

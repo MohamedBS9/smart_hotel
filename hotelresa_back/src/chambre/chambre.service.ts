@@ -49,26 +49,12 @@ export class ChambreService {
     await  updateHotel.save();
     }else{
     throw new NotFoundException(`chambre #${id} not found in hotel`);
-}
+ }
     return listeData
   }
 
 
-  //  async deleteChambre(id: string): Promise<IChambre> {
-//     const deletedPublication =
-//       await this.publicationModel.findByIdAndDelete(publicationId);
-//     if (!deletedPublication) {
-//       throw new NotFoundException(`Publication #${publicationId} not found`);
-//     }
-//     const updatedEntrprise = await this.entrepriseModel.findById(deletedPublication.entreprise);
-//     if(updatedEntrprise){
-//   updatedEntrprise.publication = updatedEntrprise.publication.filter(pubId => pubId.toString()!== publicationId);
-//     await updatedEntrprise.save();
-//     }else{
-//     throw new NotFoundException(`publication #${publicationId} not found in the entreprise`);
-// }
-//     return deletedPublication;
-//   }
+  
 
   async updateChambre(id: string, updateChambreDto: UpdateChambreDto): Promise<IChambre> {
     const updateChambre = await this.chambreModel.findByIdAndUpdate(id, updateChambreDto, { new: true })

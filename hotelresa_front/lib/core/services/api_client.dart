@@ -4,20 +4,20 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
-import '../util/pref_utils.dart';
-import '../util/environment.dart';
+
 import '../../injection_container.dart' as di;
+import '../config/app_config.dart';
+import '../util/pref_utils.dart';
 
 class ApiClient {
   final Dio dio = createDio();
 
   static Dio createDio() {
     PrefUtils prefUtils = di.sl<PrefUtils>();
-    Environment environment = di.sl<Environment>();
     final token = prefUtils.getToken();
 
     BaseOptions options = BaseOptions(
-      baseUrl: environment.baseUrl,
+      baseUrl: AppConfig.shared.baseUrl,
       validateStatus: (status) {
         return status != null;
       },

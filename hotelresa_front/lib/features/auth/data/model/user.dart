@@ -4,58 +4,34 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
+  @JsonKey(name: '_id')
   String? id;
-  String? fullName;
-  String? companyName;
-  String? userEmail;
-  String? userPhone;
-  String? password;
-  String? country;
-  String? state;
-  String? birthDate;
-  String? zipCode;
-  List<dynamic>? loginHistory;
-  String? paymentHistory;
-  List<dynamic>? notifications;
-  String? otp;
-  bool? isNewsLetter;
-  bool? isNewsLetterProvince;
-  bool? isVerified;
-  bool? isActive;
-  String? gender;
-  String? authMethod;
-  String? userType;
-  String? avatar;
-  String? resetPasswordToken;
-  String? createdAt;
-  String? updatedAt;
+  String? nom;
+  String? email;
+  String? motdepasse;
+  int? phone;
+  String? code;
+  String? role;
+  String? image;
+  List<String>? reservation;
+  bool? verify;
+  String? resetCode;
+  String? resetCodeExpires;
 
-  User(
-      {this.id,
-      this.fullName,
-      this.companyName,
-      this.userEmail,
-      this.userPhone,
-      this.password,
-      this.country,
-      this.state,
-      this.birthDate,
-      this.zipCode,
-      this.loginHistory,
-      this.paymentHistory,
-      this.notifications,
-      this.otp,
-      this.isNewsLetter,
-      this.isNewsLetterProvince,
-      this.isVerified,
-      this.isActive,
-      this.gender,
-      this.authMethod,
-      this.userType,
-      this.avatar,
-      this.resetPasswordToken,
-      this.createdAt,
-      this.updatedAt});
+  User({
+    this.id,
+    this.nom,
+    this.email,
+    this.motdepasse,
+    this.phone,
+    this.code,
+    this.role,
+    this.image,
+    this.reservation,
+    this.verify,
+    this.resetCode,
+    this.resetCodeExpires,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

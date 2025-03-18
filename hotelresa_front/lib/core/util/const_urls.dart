@@ -29,6 +29,7 @@ const String getOtherUserTypesSubsInfosUrl =
     "$jasminEndPoint/get-analytic-subscriptions-professional-particular";
 const String getTerminatedSubscriptionsUrl =
     "$jasminEndPoint/get-analytic-terminated-subscriptions-professional-particular";
+const String loginUrl="/auth/signin";
 
 const String getJuridicEntityRevenueUrl =
     "$jasminEndPoint/get-juridic-entity-revenu";

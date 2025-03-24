@@ -1,20 +1,19 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hoelresa_front/core/routes/app_router.gr.dart';
 
-import 'core/util/pref_utils.dart';
-import 'injection_container.dart';
+import '../../core/routes/app_router.gr.dart';
+import '../../core/util/pref_utils.dart';
+import '../../injection_container.dart';
 
 @RoutePage()
-class MainHome extends StatefulWidget {
-  const MainHome({super.key});
+class ManagerHomePage extends StatefulWidget {
+  const ManagerHomePage({super.key});
 
   @override
-  State<MainHome> createState() => _MainHomeState();
+  State<ManagerHomePage> createState() => _ManagerHomePageState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class _ManagerHomePageState extends State<ManagerHomePage> {
   PrefUtils prefUtils = sl<PrefUtils>();
 
   void logOut() {
@@ -35,7 +34,7 @@ class _MainHomeState extends State<MainHome> {
                     Icons.exit_to_app_outlined,
                     color: Colors.white,
                   )),
-              Text("home page"),
+              Text("manager home page"),
             ],
           ),
         ),

@@ -1,7 +1,0 @@
-{
-  "baseUrl" : "https://ppms-backend-test.azurewebsites.net/sultan-v1/",
-  "imageUrl" : "https://ppmsstoragetest01.blob.core.windows.net",
-  "googleApiKey" : "AIzaSyAz6XzOp2eIEPWI2LyXkUQU5fURTRk3_4o",
-  "termUrl" : "https://ppms-sultan-dev.azurewebsites.net/cgu-cgv-mentions-legales",
-  "regulationsUrl" : "https://ppms-sultan-dev.azurewebsites.net/reglement-ordre-interieur"
-}

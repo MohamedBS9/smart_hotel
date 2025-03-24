@@ -59,7 +59,11 @@ class _LoginPageState extends State<LoginPage> {
           if (state is FailureLoginState) {
             hasErrorDialog(state.error.Description, context);
           } else if (state is SuccessLoginState) {
-            context.router.replace(MainHome());
+            if (state.user!.role == "manager") {
+              context.router.push(ManagerHomeRoute());
+            } else {
+              context.router.push(ClientHomeRoute());
+            }
           }
         },
         builder: (context, state) {
